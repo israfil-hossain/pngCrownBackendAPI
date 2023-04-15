@@ -1,9 +1,8 @@
-const path = require("path");
 const multer = require("multer");
 const ImageModel = require("../models/imageSchema");
-
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
+
 
 // Set up storage engine for multer
 const storage = multer.diskStorage({
@@ -35,6 +34,7 @@ const upload = multer({
     cb(null, true);
   },
 }).single("image");
+
 
 // Handle POST request to upload image and store image URL in database
 const addImage = (req, res) => {
