@@ -24,9 +24,6 @@ cloudinary.config({
 // Set up Multer upload middleware
 const upload = multer({
   storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024, // 5 MB
-  },
   fileFilter: function (req, file, cb) {
     if (file.mimetype !== "image/png") {
       return cb(new Error("Only PNG images are allowed"));
