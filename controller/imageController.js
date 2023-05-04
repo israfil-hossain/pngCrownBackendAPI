@@ -63,7 +63,7 @@ const addImage = (req, res) => {
         format: result.format,
         width: result.width,
         height: result.height,
-        size: result.size,
+        size: result.bytes,
       });
       newImagedata.save(function (err) {
         if (err) {
@@ -150,17 +150,49 @@ const updateImage = (req, res) => {
   });
 };
 
+// const getAllImages = async (req, res) => {
+//   try {
+//     const imageData = await ImageModel.find();
+//     res.status(200).json(imageData);
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({
+//       error: "An error occurred while retrieving Image Data",
+//     });
+//   }
+// };
+
 const getAllImages = async (req, res) => {
   try {
-    const imageData = await ImageModel.find();
+    let { page = 1, limit = 50, sortBy = 'createdAt', sortOrder = 'desc' } = req.query;
+    // Validate page and limit parameters
+    page = parseInt(page);
+    limit = parseInt(limit);
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+      return res.status(400).json({ error: 'Invalid page or limit parameter' });
+    }
+    // Validate sorting parameters
+    const validSortFields = ['createdAt', 'name'];
+    const validSortOrders = ['asc', 'desc'];
+    if (!validSortFields.includes(sortBy) || !validSortOrders.includes(sortOrder)) {
+      return res.status(400).json({ error: 'Invalid sorting parameter' });
+    }
+    // Calculate skip and sort options
+    const skip = (page - 1) * limit;
+    const sortOptions = { [sortBy]: sortOrder === 'desc' ? -1 : 1 };
+    // Retrieve images data
+    const imageData = await ImageModel.find().skip(skip).limit(limit).sort(sortOptions);
+    // console.log(imageData)
     res.status(200).json(imageData);
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      error: "An error occurred while retrieving Image Data",
+      error: 'An error occurred while retrieving Image Data',
     });
   }
 };
+
+
 
 // Handle GET request to retrieve a single Image Data by ID
 const getImageById = async (req, res) => {

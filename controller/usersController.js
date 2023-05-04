@@ -8,12 +8,10 @@ const { Model } = require("mongoose");
 // get All User Api  Controller
 const getUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find().sort({_id: -1});
     res.json(users);
   } catch (err) {
     return res.status(500).json({
-      // message:"Unknown error occured !",
-      // success:false,
       errors: {
         common: {
           msg: `Unknown error occured ! ${err}`,
@@ -22,6 +20,7 @@ const getUsers = async (req, res, next) => {
     });
   }
 };
+
 
 //get Single User Api Controller
 const getSingleUser = async (req, res, next) => {

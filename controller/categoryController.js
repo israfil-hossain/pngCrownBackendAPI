@@ -4,7 +4,7 @@ const Category = require("../models/CategorySchema");
 // get All Category Api  
 const  getCategory = async (req,res,next)=>{
     try{
-        const category = await Category.find(); 
+        const category = await Category.find().sort({_id:-1}); 
         res.json(category); 
     }
     catch(err){

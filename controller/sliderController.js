@@ -105,7 +105,7 @@ const updateSlider = (req, res) => {
 
 const getAllSliderImages = async (req, res) => {
   try {
-    const sliderImages = await Slider.find();
+    const sliderImages = await Slider.find().sort({_id:-1});
     res.status(200).json(sliderImages);
   } catch (err) {
     console.log(err);

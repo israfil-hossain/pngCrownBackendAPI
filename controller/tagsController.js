@@ -26,7 +26,7 @@ const addTags = async (req, res) => {
 // Get All Tags
 const getTags = async (req, res, next) => {
   try {
-    const tagsItem = await Tags.find();
+    const tagsItem = await Tags.find().sort({_id: -1});
     res.json(tagsItem);
   } catch (err) {
     return res.status(500).json({
@@ -38,6 +38,7 @@ const getTags = async (req, res, next) => {
     });
   }
 };
+
 
 module.exports = {
   addTags,

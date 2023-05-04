@@ -1,10 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const downloadSchema = new mongoose.Schema({ // set _id field to ObjectId
+const downloadSchema = new mongoose.Schema(
+  {
+    // set _id field to ObjectId
     imageName: String,
-    downloadCount: { type: Number, default: 0 } // set default download count to 0
-});
+    downloadCount: { type: Number, default: 0 }, // set default download count to 0
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const DownloadModel = mongoose.model('downloadImage', downloadSchema);
+const DownloadModel = mongoose.model("downloadImage", downloadSchema);
 
 module.exports = DownloadModel;

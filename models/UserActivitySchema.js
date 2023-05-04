@@ -17,6 +17,8 @@ const userActivitySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+},{
+  timestamps:true,
 });
 
 const UserActivity = mongoose.model('UserActivity', userActivitySchema);

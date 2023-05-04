@@ -36,7 +36,11 @@ const imageSchema = new mongoose.Schema({
   size:{
     type:Number,
   }
-});
+},
+{
+  timestamps:true,
+}
+);
 
 const ImageModel = mongoose.model('imagedata', imageSchema);
 
