@@ -11,7 +11,7 @@ const {
     getImageById,
     getAllImages,
     deleteImage,
-    download
+    getImageByCategoryName
 } = require("../controller/imageController");
 const { imageValidator,imageValidationHandler } = require("../middleware/image/imageValidator");
 // get Image 
@@ -52,6 +52,8 @@ router.get('/download/:imageName', (req, res) => {
 // get by Single Image
 router.get("/:id",getImageById); 
 
+//get by Categories wise 
+router.get("/category/:categoryName",getImageByCategoryName);
 // post Image 
 router.post("/add",addImage); 
 
